@@ -1,0 +1,31 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 360px;
+  line-height: normal;
+  font-style: normal;
+
+  .form-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .form-text {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.login-form {
+
+}

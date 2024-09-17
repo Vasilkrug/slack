@@ -4,14 +4,15 @@ import Login from './pages/login/login.tsx'
 import Join from './pages/join/join.tsx';
 
 const App = () => {
-
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/login" Component={Login}/>
-                <Route path="/join" Component={Join}/>
-            </Routes>
-        </BrowserRouter>
+        <div className='app-container'>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/login" Component={Login}/>
+                    <Route path="/join" Component={Join}/>
+                </Routes>
+            </BrowserRouter>
+        </div>
     )
 }
 
