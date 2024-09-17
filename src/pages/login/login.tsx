@@ -10,8 +10,8 @@ const Login = () => {
         <div className='login-page'>
             <Logo img={LogoImg}/>
             <Form title={engLang.loginFormTitle} text={engLang.loginFormText} className={'login-form'}>
-                <FormInput type={'email'} placeholder={'Enter email'} labelName={'Email address'}/>
-                <FormInput type={'password'} placeholder={'Enter password'} labelName={'Password'}/>
+                <FormInput type={engLang.email} placeholder={engLang.enterEmail} labelName={engLang.emailAddress}/>
+                <FormInput type={engLang.password} placeholder={engLang.enterPassword} labelName={engLang.password}/>
             </Form>
         </div>
     );

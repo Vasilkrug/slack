@@ -1,4 +1,9 @@
 {
   "loginFormTitle": "Sign In",
-  "loginFormText": "Welcome back! Please enter your details"
+  "loginFormText": "Welcome back! Please enter your details",
+  "email": "email",
+  "password": "password",
+  "enterEmail": "Enter email",
+  "enterPassword": "Enter password",
+  "emailAddress": "Email address"
 }
