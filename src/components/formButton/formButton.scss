@@ -10,15 +10,21 @@
   line-height: normal;
   border-radius: 24px;
   padding: 10px 16px;
-  color: #EDEDED;
+  @include applyThemes() {
+    color: t(textColor);
+  }
 
   &_black {
-    background-color: #121F24;
-    color: #EDEDED;
+    @include applyThemes() {
+      background-color: t(buttonColor);
+      color: t(buttonTextColor);
+    }
   }
 
   &_gray {
-    background: linear-gradient(0deg, var(--Theme-colors-ui-2, rgba(255, 255, 255, 0.92)) 0%, var(--Theme-colors-ui-2, rgba(255, 255, 255, 0.92)) 100%), var(--Primary-primary, #153F52);
-    color: #121F24;
+    @include applyThemes() {
+      background-color: t(googleButtonColor);
+      color: t(googleButtonTextcolor);
+    }
   }
 }

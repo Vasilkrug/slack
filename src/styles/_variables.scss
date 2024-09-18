@@ -1,0 +1,41 @@
+@mixin applyThemes() {
+  @each $theme, $arr in $themes {
+    .theme-#{$theme} & {
+      $theme_name: $theme !global;
+      @content;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get(map-get($themes, $theme_name), $key);
+}
+
+$themes: (
+        light: (
+                backgroundColor: #fff,
+                textColor: #4E4E4E,
+                buttonTextColor: #EDEDED,
+                buttonColor: #121F24,
+                inputColor: #EDF0F1,
+                inputTextcolor: #121F24,
+                googleButtonColor: #EDF0F1,
+                googleButtonTextcolor: #121F24,
+                linkColor: #0F6488,
+                placeholderTextColor: #6E6E6E,
+        ),
+        dark: (
+                backgroundColor: #0B0B0B,
+                textColor: #C2C2C2,
+                buttonTextColor: #121F24,
+                buttonColor: #CEE2EB,
+                inputColor: #121F24,
+                inputTextcolor: #CEE2EB,
+                googleButtonColor: #121F24,
+                googleButtonTextcolor: #CEE2EB,
+                linkColor: #0F6488,
+                placeholderTextColor: #7F7F7F
+        ),
+);
+
+

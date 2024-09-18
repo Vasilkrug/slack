@@ -17,11 +17,15 @@
     margin-top: 16px;
 
     &__text {
-      color: #4E4E4E;
+      @include applyThemes() {
+        color: t(textColor);
+      }
     }
 
     &__link {
-      color: #0F6488;
+      @include applyThemes() {
+        color: t(linkColor);
+      }
     }
   }
 }
