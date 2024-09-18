@@ -1,5 +1,5 @@
 import Form from '../../components/form/form.tsx';
-import engLang from '../../service/lang/eng/en.json';
+import lang from '../../service/lang/eng/en.json';
 import './login.scss';
 import FormInput from '../../components/formInput/formInput.tsx';
 import LogoImg from '../../assets/images/Logo.svg';
@@ -9,9 +9,9 @@ const Login = () => {
     return (
         <div className='login-page'>
             <Logo img={LogoImg}/>
-            <Form title={engLang.loginFormTitle} text={engLang.loginFormText} className={'login-form'}>
-                <FormInput type={engLang.email} placeholder={engLang.enterEmail} labelName={engLang.emailAddress}/>
-                <FormInput type={engLang.password} placeholder={engLang.enterPassword} labelName={engLang.password}/>
+            <Form title={lang.loginFormTitle} text={lang.loginFormText} className={'login-form'}>
+                <FormInput type={lang.email} placeholder={lang.enterEmail} labelName={lang.emailAddress}/>
+                <FormInput type={lang.password} placeholder={lang.enterPassword} labelName={lang.password}/>
             </Form>
         </div>
     );

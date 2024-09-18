@@ -8,15 +8,15 @@ type Props = {
 }
 const Form = ({children, title, text, className = ''}: Props) => {
     return (
-        <form className={`auth-form ${className}`}>
-            <div className='form-header'>
-                <h2 className='form-title'>{title}</h2>
-                <p className='form-text'>{text}</p>
+        <form className={`${className}`}>
+            <div className={`${className}__header`}>
+                <h2 className={`${className}__title`}>{title}</h2>
+                <p className={`${className}__text`}>{text}</p>
             </div>
-            <div className='form-body'>
+            <div className={`${className}__body`}>
                 {children}
             </div>
-            <div className='form-footer'>
+            <div className={`${className}__footer`}>
             </div>
         </form>
     );
