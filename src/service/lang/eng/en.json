@@ -5,5 +5,10 @@
   "password": "password",
   "enterEmail": "Enter email",
   "enterPassword": "Enter password",
-  "emailAddress": "Email address"
+  "emailAddress": "Email address",
+  "rememberMe": "Remember me",
+  "signIn": "Sign in",
+  "signWithGoogle": "Sign in with Google",
+  "dontHaveAccount": "Don’t have an account?",
+  "signUp": "Sign up"
 }

@@ -9,10 +9,18 @@ const Login = () => {
     return (
         <div className='login-page'>
             <Logo img={LogoImg}/>
-            <Form title={lang.loginFormTitle} text={lang.loginFormText} className={'login-form'}>
+            <Form title={lang.loginFormTitle}
+                  text={lang.loginFormText}
+                  className={'login-form'}
+                  hasCheckBox={true}
+                  checkBoxText={lang.rememberMe}>
                 <FormInput type={lang.email} placeholder={lang.enterEmail} labelName={lang.emailAddress}/>
                 <FormInput type={lang.password} placeholder={lang.enterPassword} labelName={lang.password}/>
             </Form>
+            <div className='auth-help'>
+                <p className='auth-help__text'>{lang.dontHaveAccount}</p>
+                <a className='auth-help__link' href="">{lang.signUp}</a>
+            </div>
         </div>
     );
 };

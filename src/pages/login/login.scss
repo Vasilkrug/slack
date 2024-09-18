@@ -9,4 +9,19 @@
   .me-logo {
     margin-bottom: 24px;
   }
+
+  .auth-help {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+
+    &__text {
+      color: #4E4E4E;
+    }
+
+    &__link {
+      color: #0F6488;
+    }
+  }
 }
