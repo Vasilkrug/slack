@@ -10,5 +10,14 @@
   "signIn": "Sign in",
   "signWithGoogle": "Sign in with Google",
   "dontHaveAccount": "Don’t have an account?",
-  "signUp": "Sign up"
+  "haveAccount": "Already have an account?",
+  "signUp": "Sign up",
+  "startTrialDays": "Start your 30-day free trial.",
+  "enterYourName": "Enter your name",
+  "name": "name",
+  "createPassword": "Create a password",
+  "loginType": "login",
+  "joinType": "join",
+  "getStarted": "Get started",
+  "signUpWithGoogle": "Sign up with Google"
 }

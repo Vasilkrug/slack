@@ -7,13 +7,14 @@ import Logo from '../../components/logo/logo.tsx';
 
 const Login = () => {
     return (
-        <div className='login-page'>
+        <div className='auth-page login-page'>
             <Logo img={LogoImg}/>
             <Form title={lang.loginFormTitle}
                   text={lang.loginFormText}
                   className={'login-form'}
                   hasCheckBox={true}
-                  checkBoxText={lang.rememberMe}>
+                  checkBoxText={lang.rememberMe}
+                  type={lang.loginType}>
                 <FormInput type={lang.email} placeholder={lang.enterEmail} labelName={lang.emailAddress}/>
                 <FormInput type={lang.password} placeholder={lang.enterPassword} labelName={lang.password}/>
             </Form>

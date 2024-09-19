@@ -1,0 +1,49 @@
+.join-page {
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .join-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 360px;
+    line-height: normal;
+    font-style: normal;
+
+    &__title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    &__text {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &__checkbox {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &__buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+}

@@ -9,9 +9,10 @@ type Props = {
     text: string,
     className?: string,
     hasCheckBox: boolean,
-    checkBoxText: string
+    checkBoxText: string,
+    type: string
 }
-const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText}: Props) => {
+const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText, type}: Props) => {
     return (
         <form className={`${className}`}>
             <div className={`${className}__header`}>
@@ -28,8 +29,8 @@ const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText}
                 </div> : null
                 }
             <div className={`${className}__buttons`}>
-                <FormButton text={lang.signIn} className={'form-button_black'}/>
-                <FormButton text={lang.signWithGoogle} className={'form-button_gray'} img={googleImg}/>
+                <FormButton text={type === 'login' ? lang.signIn : lang.getStarted} className={'form-button_black'}/>
+                <FormButton text={type === 'login' ? lang.signWithGoogle : lang.signUpWithGoogle} className={'form-button_gray'} img={googleImg}/>
             </div>
             </div>
         </form>

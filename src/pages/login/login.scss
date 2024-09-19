@@ -1,31 +1,10 @@
 .login-page {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 32px;
 
   .me-logo {
     margin-bottom: 24px;
-  }
-
-  .auth-help {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 16px;
-
-    &__text {
-      @include applyThemes() {
-        color: t(textColor);
-      }
-    }
-
-    &__link {
-      @include applyThemes() {
-        color: t(linkColor);
-      }
-    }
   }
 }
