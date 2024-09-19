@@ -4,6 +4,7 @@ import './login.scss';
 import FormInput from '../../components/formInput/formInput.tsx';
 import LogoImg from '../../assets/images/Logo.svg';
 import Logo from '../../components/logo/logo.tsx';
+import {Link} from "react-router-dom";
 
 const Login = () => {
     return (
@@ -20,7 +21,7 @@ const Login = () => {
             </Form>
             <div className='auth-help'>
                 <p className='auth-help__text'>{lang.dontHaveAccount}</p>
-                <a className='auth-help__link' href="">{lang.signUp}</a>
+                <Link className='auth-help__link' to={'/join'}>{lang.signUp}</Link>
             </div>
         </div>
     );

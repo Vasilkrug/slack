@@ -4,6 +4,7 @@ import Form from "../../components/form/form.tsx";
 import lang from "../../service/lang/eng/en.json";
 import FormInput from "../../components/formInput/formInput.tsx";
 import './join.scss';
+import {Link} from "react-router-dom";
 
 const Join = () => {
     return (
@@ -21,7 +22,7 @@ const Join = () => {
             </Form>
             <div className='auth-help'>
                 <p className='auth-help__text'>{lang.haveAccount}</p>
-                <a className='auth-help__link' href="">{lang.signIn}</a>
+                <Link className='auth-help__link' to={'/login'}>{lang.signIn}</Link>
             </div>
         </div>
     );
