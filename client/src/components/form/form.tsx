@@ -10,11 +10,12 @@ type Props = {
     className?: string,
     hasCheckBox: boolean,
     checkBoxText: string,
-    type: string
+    type: string,
+    onSubmit: () => void
 }
-const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText, type}: Props) => {
+const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText, type, onSubmit}: Props) => {
     return (
-        <form className={`${className}`}>
+        <form className={`${className}`} onSubmit={onSubmit}>
             <div className={`${className}__header`}>
                 <h2 className={`${className}__title`}>{title}</h2>
                 <p className={`${className}__text`}>{text}</p>
