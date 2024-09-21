@@ -41,7 +41,7 @@ const Join = () => {
                 dispatch(addUser({userName: name, userEmail: email as string, userId: user.uid}));
             }
             reset();
-            // navigate('/');
+            navigate('/');
         } catch (error) {
             console.log(error);
         }

@@ -1,23 +1,38 @@
 import lang from '../../service/lang/eng/en.json';
 import LogoImg from '../../assets/images/Logo.svg';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import fireBaseApp from '../../firebase/firebase.tsx';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {addUser} from '../../store/slices/userSlice.ts';
 import Form from '../../components/form/form.tsx';
 import AuthHelp from '../../components/authHelp/authHelp.tsx';
 import FormInput from '../../components/formInput/formInput.tsx';
 import Logo from '../../components/logo/logo.tsx';
-import {SubmitErrorHandler, SubmitHandler, useForm} from 'react-hook-form';
+import {SubmitHandler, useForm} from 'react-hook-form';
 import {AuthForm} from '../join/join.tsx';
 import './login.scss';
 
 const Login = () => {
     const {register, formState: {errors}, handleSubmit} = useForm<AuthForm>();
+    const auth = getAuth(fireBaseApp);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const submit: SubmitHandler<AuthForm> = data => {
-        console.log(data)
+    const submit: SubmitHandler<AuthForm> = async (data) => {
+        const {email, password} = data;
+
+        try {
+            const user = await signInWithEmailAndPassword(auth, email as string, password);
+            const {displayName: userName, email: userEmail, uid: userId} = user.user;
+            if (!userName || !userEmail) return;
+            dispatch(addUser({userName, userId, userEmail}))
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const submitError: SubmitErrorHandler<AuthForm> = data => {
-        console.log(data)
-    }
     return (
         <div className='auth-page login-page'>
             <Logo img={LogoImg}/>
@@ -27,7 +42,7 @@ const Login = () => {
                   hasCheckBox={true}
                   checkBoxText={lang.rememberMe}
                   type={lang.loginType}
-                  onSubmit={handleSubmit(submit, submitError)}>
+                  onSubmit={handleSubmit(submit)}>
                 <FormInput type={lang.email as 'email'}
                            register={register}
                            error={errors.email?.message}
