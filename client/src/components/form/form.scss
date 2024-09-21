@@ -6,20 +6,20 @@
   line-height: normal;
   font-style: normal;
 
-   &__title {
+  &__title {
     text-align: center;
     font-size: 36px;
     font-weight: 500;
     margin-bottom: 12px;
   }
 
-   &__text {
+  &__text {
     text-align: center;
     font-size: 16px;
     font-weight: 400;
   }
 
-   &__body {
+  &__body {
     display: flex;
     flex-direction: column;
     gap: 16px;

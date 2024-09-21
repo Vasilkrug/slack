@@ -19,5 +19,9 @@
   "loginType": "login",
   "joinType": "join",
   "getStarted": "Get started",
-  "signUpWithGoogle": "Sign up with Google"
+  "signUpWithGoogle": "Sign up with Google",
+  "enterYourEmail": "Please enter your email",
+  "enterValidEmail": "Please enter a valid email",
+  "please": "please",
+  "passwordMustContains": "Password must contain {{COUNT}} characters"
 }

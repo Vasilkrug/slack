@@ -1,7 +1,7 @@
-import './form.scss';
-import FormButton from '../formButton/formButton.tsx';
 import lang from '../../service/lang/eng/en.json';
 import googleImg from '../../assets/icons/google.svg';
+import FormButton from '../formButton/formButton.tsx';
+import './form.scss';
 
 type Props = {
     children: string | JSX.Element | JSX.Element[];
@@ -29,10 +29,12 @@ const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText,
                     <span>{checkBoxText}</span>
                 </div> : null
                 }
-            <div className={`${className}__buttons`}>
-                <FormButton text={type === 'login' ? lang.signIn : lang.getStarted} className={'form-button_black'}/>
-                <FormButton text={type === 'login' ? lang.signWithGoogle : lang.signUpWithGoogle} className={'form-button_gray'} img={googleImg}/>
-            </div>
+                <div className={`${className}__buttons`}>
+                    <FormButton text={type === 'login' ? lang.signIn : lang.getStarted}
+                                className={'form-button_black'}/>
+                    <FormButton text={type === 'login' ? lang.signWithGoogle : lang.signUpWithGoogle}
+                                className={'form-button_gray'} img={googleImg}/>
+                </div>
             </div>
         </form>
     );

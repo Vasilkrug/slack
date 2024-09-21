@@ -29,10 +29,11 @@
   }
 
   .input-error {
-    color: red;
+    color: #ffa500;
     font-size: 12px;
     position: absolute;
     left: 0;
     bottom: -15px;
+    text-transform: capitalize;
   }
 }
