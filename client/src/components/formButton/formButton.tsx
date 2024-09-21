@@ -1,5 +1,10 @@
 import './formButton.scss';
 
+enum TypeButton {
+    BUTTON = 'button',
+    SUBMIT = 'submit',
+}
+
 type Props = {
     className?: string,
     text: string,
@@ -8,7 +13,7 @@ type Props = {
 }
 const FormButton = ({text, img, className = ''}: Props) => {
     return (
-        <button className={`form-button ${className}`}>
+        <button type={img ? TypeButton.BUTTON : TypeButton.SUBMIT} className={`form-button ${className}`}>
             {img ? <img src={img} alt='Image button'/> : null}
             {text}
         </button>
