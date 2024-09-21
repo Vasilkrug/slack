@@ -7,7 +7,9 @@ import {
     updateProfile,
 } from 'firebase/auth';
 import {useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import fireBaseApp from '../../firebase/firebase.tsx';
+import {addUser} from '../../store/slices/userSlice.ts';
 import Logo from '../../components/logo/logo.tsx';
 import Form from '../../components/form/form.tsx';
 import FormInput from '../../components/formInput/formInput.tsx';
@@ -25,6 +27,7 @@ const Join = () => {
     const {register, formState: {errors}, reset, handleSubmit} = useForm<AuthForm>();
     const auth = getAuth(fireBaseApp);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const submit: SubmitHandler<AuthForm> = async (data) => {
         const {name, email, password} = data;
@@ -35,9 +38,10 @@ const Join = () => {
                 updateProfile(user, {
                     displayName: name
                 });
+                dispatch(addUser({userName: name, userEmail: email as string, userId: user.uid}));
             }
             reset();
-            navigate('/');
+            // navigate('/');
         } catch (error) {
             console.log(error);
         }
