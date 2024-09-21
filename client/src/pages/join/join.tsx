@@ -6,7 +6,9 @@ import {
     createUserWithEmailAndPassword,
     updateProfile,
 } from 'firebase/auth';
+import {FirebaseError} from '@firebase/util'
 import {useNavigate} from 'react-router-dom';
+import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import fireBaseApp from '../../firebase/firebase.tsx';
 import {addUser} from '../../store/slices/userSlice.ts';
@@ -14,8 +16,8 @@ import Logo from '../../components/logo/logo.tsx';
 import Form from '../../components/form/form.tsx';
 import FormInput from '../../components/formInput/formInput.tsx';
 import AuthHelp from '../../components/authHelp/authHelp.tsx';
+import FormError from '../../components/formError/formError.tsx';
 import './join.scss';
-
 
 export interface AuthForm {
     name: string,
@@ -24,6 +26,7 @@ export interface AuthForm {
 }
 
 const Join = () => {
+    const [error, setError] = useState('');
     const {register, formState: {errors}, reset, handleSubmit} = useForm<AuthForm>();
     const auth = getAuth(fireBaseApp);
     const navigate = useNavigate();
@@ -43,7 +46,9 @@ const Join = () => {
             reset();
             navigate('/');
         } catch (error) {
-            console.log(error);
+            if (error instanceof FirebaseError) {
+                setError(error.code);
+            }
         }
     }
 
@@ -60,6 +65,7 @@ const Join = () => {
                   checkBoxText={''}
                   type={lang.joinType}
                   onSubmit={handleSubmit(submit, submitError)}>
+                <FormError error={error}/>
                 <FormInput register={register}
                            error={errors.name?.message}
                            type={lang.name as 'name'}

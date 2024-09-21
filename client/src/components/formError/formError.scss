@@ -1,0 +1,10 @@
+.form-error {
+  color: #ffa500;
+  font-size: 12px;
+  text-align: center;
+  visibility: hidden;
+}
+
+.form-error.visible {
+  visibility: visible;
+}
