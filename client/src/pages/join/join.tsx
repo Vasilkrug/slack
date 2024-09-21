@@ -1,11 +1,19 @@
 import lang from '../../service/lang/eng/en.json';
 import LogoImg from '../../assets/images/Logo.svg';
 import {SubmitErrorHandler, SubmitHandler, useForm} from 'react-hook-form';
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile,
+} from 'firebase/auth';
+import {useNavigate} from 'react-router-dom';
+import fireBaseApp from '../../firebase/firebase.tsx';
 import Logo from '../../components/logo/logo.tsx';
 import Form from '../../components/form/form.tsx';
 import FormInput from '../../components/formInput/formInput.tsx';
 import AuthHelp from '../../components/authHelp/authHelp.tsx';
 import './join.scss';
+
 
 export interface AuthForm {
     name: string,
@@ -14,10 +22,25 @@ export interface AuthForm {
 }
 
 const Join = () => {
-    const {register, formState: {errors}, handleSubmit} = useForm<AuthForm>();
+    const {register, formState: {errors}, reset, handleSubmit} = useForm<AuthForm>();
+    const auth = getAuth(fireBaseApp);
+    const navigate = useNavigate();
 
-    const submit: SubmitHandler<AuthForm> = data => {
-        console.log(data)
+    const submit: SubmitHandler<AuthForm> = async (data) => {
+        const {name, email, password} = data;
+        try {
+            await createUserWithEmailAndPassword(auth, email as string, password);
+            const user = auth.currentUser;
+            if (user) {
+                updateProfile(user, {
+                    displayName: name
+                });
+            }
+            reset();
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const submitError: SubmitErrorHandler<AuthForm> = data => {
