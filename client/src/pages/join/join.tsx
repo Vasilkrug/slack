@@ -8,16 +8,17 @@ import {
 } from 'firebase/auth';
 import {FirebaseError} from '@firebase/util'
 import {useNavigate} from 'react-router-dom';
-import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import fireBaseApp from '../../firebase/firebase.tsx';
+import { ToastContainer, toast } from 'react-toastify';
+import fireBaseApp from '../../service/firebase/firebase.tsx';
 import {addUser} from '../../store/slices/userSlice.ts';
+import {authErrors} from '../../helpers/helpers.ts';
 import Logo from '../../components/logo/logo.tsx';
 import Form from '../../components/form/form.tsx';
 import FormInput from '../../components/formInput/formInput.tsx';
 import AuthHelp from '../../components/authHelp/authHelp.tsx';
-import FormError from '../../components/formError/formError.tsx';
 import './join.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 export interface AuthForm {
     name: string,
@@ -26,7 +27,6 @@ export interface AuthForm {
 }
 
 const Join = () => {
-    const [error, setError] = useState('');
     const {register, formState: {errors}, reset, handleSubmit} = useForm<AuthForm>();
     const auth = getAuth(fireBaseApp);
     const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Join = () => {
             navigate('/');
         } catch (error) {
             if (error instanceof FirebaseError) {
-                setError(error.code);
+                toast.error(authErrors[error.code]);
             }
         }
     }
@@ -65,7 +65,6 @@ const Join = () => {
                   checkBoxText={''}
                   type={lang.joinType}
                   onSubmit={handleSubmit(submit, submitError)}>
-                <FormError error={error}/>
                 <FormInput register={register}
                            error={errors.name?.message}
                            type={lang.name as 'name'}
@@ -82,6 +81,18 @@ const Join = () => {
                            placeholder={lang.createPassword}
                            labelName={lang.password}/>
             </Form>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
             <AuthHelp link={'/login'} text={lang.haveAccount} linkText={lang.signIn}/>
         </div>
     );
