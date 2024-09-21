@@ -1,0 +1,22 @@
+.auth-help {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 16px;
+
+  &__text {
+    @include applyThemes() {
+      color: t(textColor);
+    }
+  }
+
+  &__link {
+    @include applyThemes() {
+      color: t(linkColor);
+    }
+  }
+  
+  @media screen and (max-width: 300px) {
+    flex-direction: column;
+  }
+}
