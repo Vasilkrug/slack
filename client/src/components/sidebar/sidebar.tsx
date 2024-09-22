@@ -4,18 +4,20 @@ import phoneImage from '../../assets/icons/phone.svg';
 import groupImage from '../../assets/icons/group.svg';
 import settingsImage from '../../assets/icons/settings.svg';
 import SideBarLink from '../sideBarLink/sideBarlink.tsx';
+import SideBarNav from '../sideBarNav/sideBarNav.tsx';
 import './sidebar.scss';
+
 
 const Sidebar = () => {
     return (
         <div className='sidebar'>
             <Logo height={34} width={34}/>
-            <nav className='nav-list'>
+            <SideBarNav>
                 <SideBarLink link={''} img={chatImage}/>
                 <SideBarLink link={''} img={phoneImage}/>
                 <SideBarLink link={''} img={groupImage}/>
                 <SideBarLink link={''} img={settingsImage}/>
-            </nav>
+            </SideBarNav>
             <div className='user-avatar-wrapper'>
                 <div className='user-avatar'>
                     V
