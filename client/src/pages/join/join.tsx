@@ -66,7 +66,7 @@ const Join = () => {
     }
 
     return (
-        <div className='auth-page join-page'>
+        <div className='page join-page'>
             <Logo img={LogoImg}/>
             <Form title={lang.signUp}
                   text={lang.startTrialDays}

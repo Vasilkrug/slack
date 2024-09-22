@@ -52,7 +52,7 @@ const Login = () => {
     }
 
     return (
-        <div className='auth-page login-page'>
+        <div className='page login-page'>
             <Logo img={LogoImg}/>
             <Form title={lang.loginFormTitle}
                   text={lang.loginFormText}

@@ -13,16 +13,17 @@
 
 $themes: (
         light: (
-                backgroundColor: #fff,
+                backgroundColor: #F8F9FA,
                 textColor: #4E4E4E,
                 buttonTextColor: #EDEDED,
                 buttonColor: #121F24,
-                inputColor: #EDF0F1,
+                inputColor: #E5E4E2,
                 inputTextcolor: #121F24,
-                googleButtonColor: #EDF0F1,
+                googleButtonColor: #E5E4E2,
                 googleButtonTextcolor: #121F24,
                 linkColor: #0F6488,
                 placeholderTextColor: #6E6E6E,
+                iconBackground: #E1F1F8,
         ),
         dark: (
                 backgroundColor: #0B0B0B,
@@ -34,7 +35,8 @@ $themes: (
                 googleButtonColor: #121F24,
                 googleButtonTextcolor: #CEE2EB,
                 linkColor: #0F6488,
-                placeholderTextColor: #7F7F7F
+                placeholderTextColor: #7F7F7F,
+                iconBackground: #121F24,
         ),
 );
 
