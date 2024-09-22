@@ -1,0 +1,15 @@
+.sideBar-link {
+  padding: 8px 24px;
+
+  @media screen and (max-width: 1023px) {
+    padding: 8px;
+  }
+
+  &:hover {
+    border-radius: 24px;
+    transition: background-color 500ms ease;
+    @include applyThemes() {
+      background-color: t(iconBackground);
+    }
+  }
+}
