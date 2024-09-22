@@ -1,5 +1,4 @@
 import lang from '../../service/lang/eng/en.json';
-import LogoImg from '../../assets/images/Logo.svg';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import fireBaseApp from '../../service/firebase/firebase.tsx';
 import {FirebaseError} from '@firebase/util';
@@ -53,7 +52,7 @@ const Login = () => {
 
     return (
         <div className='page login-page'>
-            <Logo img={LogoImg}/>
+            <Logo/>
             <Form title={lang.loginFormTitle}
                   text={lang.loginFormText}
                   className={'login-form'}

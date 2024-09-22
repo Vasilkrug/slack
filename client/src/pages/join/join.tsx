@@ -1,5 +1,4 @@
 import lang from '../../service/lang/eng/en.json';
-import LogoImg from '../../assets/images/Logo.svg';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {
     getAuth,
@@ -67,7 +66,7 @@ const Join = () => {
 
     return (
         <div className='page join-page'>
-            <Logo img={LogoImg}/>
+            <Logo/>
             <Form title={lang.signUp}
                   text={lang.startTrialDays}
                   className={'join-form'}
