@@ -1,15 +1,15 @@
 import lang from '../../service/lang/eng/en.json';
 import LogoImg from '../../assets/images/Logo.svg';
-import {SubmitErrorHandler, SubmitHandler, useForm} from 'react-hook-form';
+import {SubmitHandler, useForm} from 'react-hook-form';
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    updateProfile,
+    updateProfile, signInWithPopup, GoogleAuthProvider,
 } from 'firebase/auth';
 import {FirebaseError} from '@firebase/util'
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import fireBaseApp from '../../service/firebase/firebase.tsx';
 import {addUser} from '../../store/slices/userSlice.ts';
 import {authErrors} from '../../helpers/helpers.ts';
@@ -27,6 +27,7 @@ export interface AuthForm {
 }
 
 const Join = () => {
+    const provider = new GoogleAuthProvider();
     const {register, formState: {errors}, reset, handleSubmit} = useForm<AuthForm>();
     const auth = getAuth(fireBaseApp);
     const navigate = useNavigate();
@@ -52,9 +53,23 @@ const Join = () => {
         }
     }
 
-    const submitError: SubmitErrorHandler<AuthForm> = data => {
-        console.log(data)
+    const signInWithGoogle = async () => {
+        try {
+            const request = await signInWithPopup(auth, provider);
+            const user = request.user;
+            dispatch(addUser({
+                userName: user.displayName as string,
+                userEmail: user.email as string,
+                userId: user.uid
+            }));
+            navigate('/');
+        } catch (error) {
+            if (error instanceof FirebaseError) {
+                toast.error(authErrors[error.code]);
+            }
+        }
     }
+
     return (
         <div className='auth-page join-page'>
             <Logo img={LogoImg}/>
@@ -64,7 +79,8 @@ const Join = () => {
                   hasCheckBox={false}
                   checkBoxText={''}
                   type={lang.joinType}
-                  onSubmit={handleSubmit(submit, submitError)}>
+                  onSubmit={handleSubmit(submit)}
+                  signWithGoogle={signInWithGoogle}>
                 <FormInput register={register}
                            error={errors.name?.message}
                            type={lang.name as 'name'}

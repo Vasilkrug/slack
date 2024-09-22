@@ -1,6 +1,6 @@
 import lang from '../../service/lang/eng/en.json';
 import LogoImg from '../../assets/images/Logo.svg';
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
 import fireBaseApp from '../../service/firebase/firebase.tsx';
 import {FirebaseError} from '@firebase/util';
 import {useNavigate} from 'react-router-dom';
@@ -18,6 +18,7 @@ import './login.scss';
 
 const Login = () => {
     const {register, formState: {errors}, handleSubmit} = useForm<AuthForm>();
+    const provider = new GoogleAuthProvider();
     const auth = getAuth(fireBaseApp);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -38,6 +39,23 @@ const Login = () => {
         }
     }
 
+    const signInWithGoogle = async () => {
+        try {
+            const request = await signInWithPopup(auth, provider);
+            const user = request.user;
+            dispatch(addUser({
+                userName: user.displayName as string,
+                userEmail: user.email as string,
+                userId: user.uid
+            }));
+            navigate('/');
+        } catch (error) {
+            if (error instanceof FirebaseError) {
+                toast.error(authErrors[error.code]);
+            }
+        }
+    }
+
     return (
         <div className='auth-page login-page'>
             <Logo img={LogoImg}/>
@@ -47,7 +65,8 @@ const Login = () => {
                   hasCheckBox={true}
                   checkBoxText={lang.rememberMe}
                   type={lang.loginType}
-                  onSubmit={handleSubmit(submit)}>
+                  onSubmit={handleSubmit(submit)}
+                  signWithGoogle={signInWithGoogle}>
                 <FormInput type={lang.email as 'email'}
                            register={register}
                            error={errors.email?.message}

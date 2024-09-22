@@ -11,9 +11,10 @@ type Props = {
     hasCheckBox: boolean,
     checkBoxText: string,
     type: string,
-    onSubmit: () => void
+    onSubmit: () => void,
+    signWithGoogle: () => void,
 }
-const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText, type, onSubmit}: Props) => {
+const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText, type, onSubmit, signWithGoogle}: Props) => {
     return (
         <form className={`${className}`} onSubmit={onSubmit}>
             <div className={`${className}__header`}>
@@ -32,7 +33,7 @@ const Form = ({children, title, text, className = '', hasCheckBox, checkBoxText,
                 <div className={`${className}__buttons`}>
                     <FormButton text={type === 'login' ? lang.signIn : lang.getStarted}
                                 className={'form-button_black'}/>
-                    <FormButton text={type === 'login' ? lang.signWithGoogle : lang.signUpWithGoogle}
+                    <FormButton onClick={signWithGoogle} text={type === 'login' ? lang.signWithGoogle : lang.signUpWithGoogle}
                                 className={'form-button_gray'} img={googleImg}/>
                 </div>
             </div>
