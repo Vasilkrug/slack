@@ -1,6 +1,6 @@
 import lang from '../../service/lang/eng/en.json';
 import LogoImg from '../../assets/images/Logo.svg';
-import {getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import fireBaseApp from '../../service/firebase/firebase.tsx';
 import {FirebaseError} from '@firebase/util';
 import {useNavigate} from 'react-router-dom';
@@ -8,6 +8,8 @@ import {useDispatch} from 'react-redux';
 import {ToastContainer, toast} from 'react-toastify';
 import {addUser} from '../../store/slices/userSlice.ts';
 import {authErrors} from '../../helpers/helpers.ts';
+import {googleAuth} from '../../service/auth/auth.ts';
+import {paths} from '../../paths/paths.ts';
 import Form from '../../components/form/form.tsx';
 import AuthHelp from '../../components/authHelp/authHelp.tsx';
 import FormInput from '../../components/formInput/formInput.tsx';
@@ -18,7 +20,6 @@ import './login.scss';
 
 const Login = () => {
     const {register, formState: {errors}, handleSubmit} = useForm<AuthForm>();
-    const provider = new GoogleAuthProvider();
     const auth = getAuth(fireBaseApp);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const Login = () => {
             const {displayName: userName, email: userEmail, uid: userId} = user.user;
             if (!userName || !userEmail) return;
             dispatch(addUser({userName, userId, userEmail}))
-            navigate('/');
+            navigate(paths.toHome);
         } catch (error) {
             if (error instanceof FirebaseError) {
                 toast.error(authErrors[error.code]);
@@ -39,21 +40,15 @@ const Login = () => {
         }
     }
 
-    const signInWithGoogle = async () => {
-        try {
-            const request = await signInWithPopup(auth, provider);
-            const user = request.user;
-            dispatch(addUser({
-                userName: user.displayName as string,
-                userEmail: user.email as string,
-                userId: user.uid
-            }));
-            navigate('/');
-        } catch (error) {
-            if (error instanceof FirebaseError) {
-                toast.error(authErrors[error.code]);
-            }
-        }
+    const googleSignIn = async () => {
+        const user = await googleAuth();
+        if (!user) return;
+        dispatch(addUser({
+            userName: user.displayName as string,
+            userEmail: user.email as string,
+            userId: user.uid
+        }));
+        navigate(paths.toHome);
     }
 
     return (
@@ -66,7 +61,7 @@ const Login = () => {
                   checkBoxText={lang.rememberMe}
                   type={lang.loginType}
                   onSubmit={handleSubmit(submit)}
-                  signWithGoogle={signInWithGoogle}>
+                  signWithGoogle={googleSignIn}>
                 <FormInput type={lang.email as 'email'}
                            register={register}
                            error={errors.email?.message}
@@ -78,17 +73,17 @@ const Login = () => {
                            placeholder={lang.enterPassword}
                            labelName={lang.password}/>
             </Form>
-            <AuthHelp link={'/join'} text={lang.dontHaveAccount} linkText={lang.signUp}/>
+            <AuthHelp link={paths.toJoin} text={lang.dontHaveAccount} linkText={lang.signUp}/>
             <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar
                 newestOnTop={false}
                 closeOnClick
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
-                pauseOnHover
+                pauseOnHover={false}
                 theme="dark"
             />
         </div>

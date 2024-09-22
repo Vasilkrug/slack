@@ -4,15 +4,17 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    updateProfile, signInWithPopup, GoogleAuthProvider,
+    updateProfile,
 } from 'firebase/auth';
 import {FirebaseError} from '@firebase/util'
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {ToastContainer, toast} from 'react-toastify';
 import fireBaseApp from '../../service/firebase/firebase.tsx';
+import {paths} from '../../paths/paths.ts';
 import {addUser} from '../../store/slices/userSlice.ts';
 import {authErrors} from '../../helpers/helpers.ts';
+import {googleAuth} from '../../service/auth/auth.ts';
 import Logo from '../../components/logo/logo.tsx';
 import Form from '../../components/form/form.tsx';
 import FormInput from '../../components/formInput/formInput.tsx';
@@ -27,7 +29,6 @@ export interface AuthForm {
 }
 
 const Join = () => {
-    const provider = new GoogleAuthProvider();
     const {register, formState: {errors}, reset, handleSubmit} = useForm<AuthForm>();
     const auth = getAuth(fireBaseApp);
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Join = () => {
                 dispatch(addUser({userName: name, userEmail: email as string, userId: user.uid}));
             }
             reset();
-            navigate('/');
+            navigate(paths.toHome);
         } catch (error) {
             if (error instanceof FirebaseError) {
                 toast.error(authErrors[error.code]);
@@ -53,21 +54,15 @@ const Join = () => {
         }
     }
 
-    const signInWithGoogle = async () => {
-        try {
-            const request = await signInWithPopup(auth, provider);
-            const user = request.user;
-            dispatch(addUser({
-                userName: user.displayName as string,
-                userEmail: user.email as string,
-                userId: user.uid
-            }));
-            navigate('/');
-        } catch (error) {
-            if (error instanceof FirebaseError) {
-                toast.error(authErrors[error.code]);
-            }
-        }
+    const googleSignUp = async () => {
+        const user = await googleAuth();
+        if (!user) return;
+        dispatch(addUser({
+            userName: user.displayName as string,
+            userEmail: user.email as string,
+            userId: user.uid
+        }));
+        navigate(paths.toHome);
     }
 
     return (
@@ -80,7 +75,7 @@ const Join = () => {
                   checkBoxText={''}
                   type={lang.joinType}
                   onSubmit={handleSubmit(submit)}
-                  signWithGoogle={signInWithGoogle}>
+                  signWithGoogle={googleSignUp}>
                 <FormInput register={register}
                            error={errors.name?.message}
                            type={lang.name as 'name'}
@@ -98,18 +93,18 @@ const Join = () => {
                            labelName={lang.password}/>
             </Form>
             <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar
                 newestOnTop={false}
                 closeOnClick
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
-                pauseOnHover
+                pauseOnHover={false}
                 theme="dark"
             />
-            <AuthHelp link={'/login'} text={lang.haveAccount} linkText={lang.signIn}/>
+            <AuthHelp link={paths.toLogin} text={lang.haveAccount} linkText={lang.signIn}/>
         </div>
     );
 };
